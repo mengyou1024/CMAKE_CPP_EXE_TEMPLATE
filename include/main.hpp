@@ -1,3 +1,3 @@
 #pragma once
 
-inline constexpr auto HELLO = "Hello World!";
+inline constexpr auto HELLO = "Hello World!\n";

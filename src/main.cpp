@@ -1,7 +1,7 @@
 #include "main.hpp"
-#include <iostream>
+#include <fmt/core.h>
 
-int main(int argc, char *argv[]) {
-    std::cout << HELLO << std::endl;
+int main() {
+    fmt::print(HELLO);
     return 0;
 }

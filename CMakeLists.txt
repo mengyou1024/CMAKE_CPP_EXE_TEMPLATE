@@ -10,9 +10,12 @@ add_executable(${PROJECT_NAME} ${CURRENT_SRC})
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
+find_package(fmt CONFIG REQUIRED)
+
 target_compile_options(${PROJECT_NAME} PUBLIC
     "$<$<C_COMPILER_ID:MSVC>:/utf-8>"
     "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>"
     "$<$<C_COMPILER_ID:MSVC>:/W4>"
     "$<$<CXX_COMPILER_ID:MSVC>:/W4>"
 )
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
