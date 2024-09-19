@@ -54,7 +54,9 @@ CheckOptions:
   - key: readability-identifier-naming.PrivateMemberPrefix
     value: m_
   - key: readability-identifier-naming.MemberCase
-    value: CamelCase
+    value: lower_case
+  - key: readability-identifier-naming.VirtualMethodCase
+    value: camelBack
 
   # ---------------------------------------------------------------------------
   # Parameters
@@ -63,8 +65,6 @@ CheckOptions:
 
   # ---------------------------------------------------------------------------
   # Variables
-  - key: readability-identifier-naming.ConstexprVariableCase
-    value: UPPER_CASE
   - key: readability-identifier-naming.LocalConstantCase
     value: UPPER_CASE
   - key: readability-identifier-naming.VariableCase
@@ -78,6 +78,10 @@ CheckOptions:
   - key: readability-identifier-naming.GlobalConstantCase
     value: UPPER_CASE
   - key: readability-identifier-naming.GlobalConstantPointerCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.StaticVarialbleCase
+    value: CamelCase
+  - key: readability-identifier-naming.StaticConstantCase
     value: UPPER_CASE
 
   # ---------------------------------------------------------------------------
@@ -96,3 +100,10 @@ CheckOptions:
   # Namespaces
   - key: readability-identifier-naming.NamespaceCase
     value: CamelCase
+    
+  # ---------------------------------------------------------------------------
+  # Constexpr
+  - key: readability-identifier-naming.ConstexprFunctionCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: UPPER_CASE
