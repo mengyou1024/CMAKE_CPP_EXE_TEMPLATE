@@ -49,3 +49,29 @@ function(add_clang_tidy_pre_build target_name)
 endfunction(add_clang_tidy_pre_build target_name)
 
 add_clang_tidy_pre_build(${PROJECT_NAME})
+
+install(
+    TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR}
+)
+
+install(CODE [[
+
+file(
+    GET_RUNTIME_DEPENDENCIES
+    RESOLVED_DEPENDENCIES_VAR RESOLVED_DEPS
+    UNRESOLVED_DEPENDENCIES_VAR UNRESOLVED_DEPS
+    LIBRARIES $<TARGET_FILE:cpp_template>
+    DIRECTORIES $<TARGET_FILE_DIR:cpp_template>
+    PRE_INCLUDE_REGEXES $<TARGET_FILE_DIR:cpp_template>
+    PRE_EXCLUDE_REGEXES "system32"
+    POST_INCLUDE_REGEXES $<TARGET_FILE_DIR:cpp_template>
+    POST_EXCLUDE_REGEXES "system32"
+)
+
+foreach(DEP_LIB ${RESOLVED_DEPS})
+    file(INSTALL ${DEP_LIB} DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR})
+endforeach()
+
+]])
