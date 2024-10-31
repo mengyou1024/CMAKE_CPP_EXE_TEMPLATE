@@ -23,6 +23,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 function(add_clang_tidy_pre_build target_name)
     # 查找clang-tidy可执行文件
     find_program(CLANG_TIDY_EXECUTABLE clang-tidy)
+
     if(CLANG_TIDY_EXECUTABLE)
         message(STATUS "Found clang-tidy: ${CLANG_TIDY_EXECUTABLE}")
     else()
@@ -32,14 +33,16 @@ function(add_clang_tidy_pre_build target_name)
 
     get_target_property(_target_sources ${target_name} SOURCES)
     set(_clang_tidy_src "")
+
     foreach(_item ${_target_sources})
         get_filename_component(_asb_path ${_item} ABSOLUTE)
         list(APPEND _clang_tidy_src ${_asb_path})
     endforeach(_item ${_target_sources})
+
     add_custom_command(
         TARGET ${target_name}
         PRE_BUILD
-        COMMAND clang-tidy -p "${CMAKE_BINARY_DIR}" --warnings-as-errors=*  -header-filter=.* ${_clang_tidy_src}
+        COMMAND clang-tidy -p "${CMAKE_BINARY_DIR}" --warnings-as-errors=* -header-filter=.* ${_clang_tidy_src}
         COMMENT "Check for clang-tidy issues before building ${target_name}"
         VERBATIM
     )
