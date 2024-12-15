@@ -50,11 +50,7 @@ endfunction(add_clang_tidy_pre_build target_name)
 
 add_clang_tidy_pre_build(${PROJECT_NAME})
 
-install(
-    TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR}
-)
+install(TARGETS ${PROJECT_NAME})
 
 install(CODE [[
 
@@ -71,7 +67,14 @@ file(
 )
 
 foreach(DEP_LIB ${RESOLVED_DEPS})
-    file(INSTALL ${DEP_LIB} DESTINATION ${CMAKE_INSTALL_PREFIX}/output/${CMAKE_INSTALL_BINDIR})
+    file(INSTALL ${DEP_LIB} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 endforeach()
 
 ]])
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_VERSION "1.0.0") 
+set(CPACK_GENERATOR "ZIP") 
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF) 
+include(CPack) 
