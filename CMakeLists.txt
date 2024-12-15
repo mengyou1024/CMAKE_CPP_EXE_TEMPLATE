@@ -27,7 +27,7 @@ function(add_clang_tidy_pre_build target_name)
     if(CLANG_TIDY_EXECUTABLE)
         message(STATUS "Found clang-tidy: ${CLANG_TIDY_EXECUTABLE}")
     else()
-        message(WARNING "clang-tidy not found, use: `choco install llvm` to install clang-tidy")
+        message(WARNING "clang-tidy not found, use:\n\t`choco install llvm`(Windows)\n\t`sudo apt install llvm`(Debain) \nto install clang-tidy")
         return()
     endif()
 

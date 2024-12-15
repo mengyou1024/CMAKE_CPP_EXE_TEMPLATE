@@ -82,7 +82,7 @@
         {
             "name": "linux-gcc-base",
             "hidden": true,
-            "generator": "Ninja",
+            "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
