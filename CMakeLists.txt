@@ -4,11 +4,27 @@ project(cpp_template)
 
 set(CMAKE_CXX_STANDARD 20)
 
-aux_source_directory(src CURRENT_SRC)
+file(GLOB_RECURSE ${PROJECT_NAME}_SRC "src/*.cpp" "src/*.c" "src/*.cc" "src/*.cxx")
+file(GLOB_RECURSE ${PROJECT_NAME}_INC "src/*.h" "src/*.hpp")
 
-add_executable(${PROJECT_NAME} ${CURRENT_SRC})
+set(${PROJECT_NAME}_INCLUDE_DIRS "")
 
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+foreach(HEAD_FILE ${${PROJECT_NAME}_INC})
+    get_filename_component(directory_name ${HEAD_FILE} DIRECTORY)
+    list(FIND ${PROJECT_NAME}_INCLUDE_DIRS ${directory_name} index)
+
+    if(${index} EQUAL -1)
+        list(APPEND ${PROJECT_NAME}_INCLUDE_DIRS ${directory_name})
+    endif()
+endforeach(HEAD_FILE ${PROJECT_NAME})
+
+add_executable(
+    ${PROJECT_NAME}
+    ${${PROJECT_NAME}_SRC}
+    ${${PROJECT_NAME}_INC}
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_INCLUDE_DIRS})
 
 find_package(fmt CONFIG REQUIRED)
 
@@ -74,7 +90,7 @@ endforeach()
 
 include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_VERSION "1.0.0") 
-set(CPACK_GENERATOR "ZIP") 
-set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF) 
-include(CPack) 
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_GENERATOR "ZIP")
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
+include(CPack)
