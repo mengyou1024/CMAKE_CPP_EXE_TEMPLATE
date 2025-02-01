@@ -59,3 +59,8 @@ set(CPACK_PACKAGE_VERSION "1.0.0")
 set(CPACK_GENERATOR "ZIP")
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
 include(CPack)
+
+if(BUILD_TESTING)
+    include(CTest)
+    add_subdirectory(test)
+endif()
