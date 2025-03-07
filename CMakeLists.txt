@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(cpp_template)
+project(cpp_template C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 
